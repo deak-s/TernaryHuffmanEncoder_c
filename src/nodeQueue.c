@@ -6,12 +6,10 @@
 */
 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "nodeQueue.h"
-
 
 
 Node * createNode(char c, int f) {      
@@ -49,8 +47,6 @@ Queue *initializeEmptyQueue () {
 
 
 
-
-
 void fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
 
     printf("length %ld\n", length);
@@ -58,11 +54,12 @@ void fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
     //start at head of queue
     Pair *tempPair = &array[0];
 
-    theQueue->head = createNode(tempPair->character, tempPair->frequency);
+    Node *currentNode = createNode(tempPair->character, tempPair->frequency);
 
-    Node *currentNode = theQueue->head;
+    theQueue->head = currentNode;
 
     for (int k = 1; k < length; k++){
+
         Pair *tempPair = &array[k];
 
         Node *tempNode = createNode(tempPair->character, tempPair->frequency);
@@ -70,6 +67,7 @@ void fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
         tempNode->prev = currentNode;
    
         currentNode = currentNode->next;
+
     }
 return;
 }
@@ -94,6 +92,7 @@ void enqueue(Queue *theQueue, Node *theNode){
     theNode->prev = currentNode;
 };
 
+
 Node *dequeue(Queue *theQueue){
 
     Node *tempNode = copyNode(theQueue->head);
@@ -109,7 +108,6 @@ Node *dequeue(Queue *theQueue){
         //free(theQueue->head);
         theQueue->head = NULL;
     }
-
     return tempNode;
 };
 
@@ -133,8 +131,23 @@ void printQueue(Queue *theQueue){
 
 void deleteQueue(Queue *theQueue){
 
+    Node *temp = theQueue->head;
+    Node *next;
+
+    while(temp != NULL){
+        next = temp->next;
+        printf("freeing %c : %d \n", temp->character, temp->frequency);
+        free(temp);
+        temp = next;
+    }
+
+    free(theQueue);
+    printf("finished deleting queue\n");
+
+    /*
      if(theQueue->head == NULL){
         printf("queue empty");
+        free(theQueue);
         return;
     }
 
@@ -145,8 +158,8 @@ void deleteQueue(Queue *theQueue){
             tempNode = tempNode->next;
             free(tempNode->prev);
 
-            printf("deleting %c : %d \n", tempNode->character, tempNode->frequency);
          }
-
          free(tempNode);
+         free(theQueue);
+         */
 }

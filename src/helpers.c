@@ -22,7 +22,6 @@ int compareNodes(Node *A, Node *B){
     if(A == NULL && B == NULL){
         return 99;
     }
-
     else if(B == NULL){
         return -1;
     }

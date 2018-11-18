@@ -19,12 +19,11 @@ Node * createTree(Queue **leafQueue){
 
     Queue *middleQueue = initializeEmptyQueue();
 
-
     while((*leafQueue)->head != NULL || middleQueue->head->next != NULL){
 
         Node *A; 
         Node *B;
-	Node *C;
+    	Node *C;
 
         assignLowestNodes(&A, &B, &C, *leafQueue, middleQueue);
 
@@ -37,18 +36,27 @@ Node * createTree(Queue **leafQueue){
         printQueue(middleQueue);
     }
 
-    printf("printing final midqueue\n");
-    printQueue(middleQueue);
 
+    printf("printing final midqueue\n");
+
+    printQueue(middleQueue);
     Node *x = middleQueue->head;
 
     printf("test %c %c %c\n", x->left->character, x->right->character, x->left->left->character); 
 
-    return middleQueue->head;
+    Node *root = copyNode(middleQueue->head);
 
 
-//    deleteQueue(middleQueue);
- //   free(middleQueue);
+    printQueue(*leafQueue);
+    deleteQueue(*leafQueue);
+
+
+    printQueue(middleQueue);
+    deleteQueue(middleQueue);
+
+
+
+    return root;
 }
 
 void printTree(Node *root){
@@ -61,24 +69,13 @@ void printTree(Node *root){
     }
 
         printTree(theNode->left);
+        printTree(theNode->middle);
         printTree(theNode->right);
 }
 
 void grabEncoding(Node *root, int height, int *code){
 
     Node *theNode = root;
-    /*
-    printf("height is %d\n", height);
-
-    printf("character is %c\n", theNode->character);
-    printf("code is ");
-    for(int j = 0; j < (height -1) ; j++){
-            printf("%d", code[j]);
-        }
-    printf("\n");
-    */
-     
-
 
     if(theNode->character != '*'){
         printf("Node %c : %d \n", theNode->character, theNode->frequency);
@@ -101,3 +98,20 @@ void grabEncoding(Node *root, int height, int *code){
 
 }
 
+
+void deleteTree(Node *root){
+
+
+    Node *theNode = root;
+
+    if(theNode == NULL){
+        return;
+    }
+
+    deleteTree(root->left);
+    deleteTree(root->middle);
+    deleteTree(root->right);
+
+    free(theNode);
+    return;
+}

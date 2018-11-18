@@ -48,5 +48,16 @@ int code[5] = {0};
 grabEncoding(root, 0, code);
 	
 
+
+//printQueue(lQueue);
+//free(lQueue->tail);
+//free(lQueue->head);
+
+//deleteQueue(lQueue);
+
+free(tList->pairList);
+free(tList);
+
+
 return 0;
 }
