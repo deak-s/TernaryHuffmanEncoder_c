@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "nodeQueue.h"
+#include "helpers.h"
 
 
 int compareNodes(Node *A, Node *B){
@@ -33,9 +35,12 @@ int compareNodes(Node *A, Node *B){
     else if(A->frequency > B->frequency){
         return 1;
     }
+	else{
+return -99;
+}
 }
 
-void assignLowestNodes(Node **A, Node **B, Node **C, Queue *leafQueue, Queue *middle){
+void assignLowestNodes(Node **A, Node **B, Node **C, Queue *leafQueue, Queue *middleQueue){
 
  //--------assigning A-------------
     //if A <= C OR C is null
@@ -65,15 +70,15 @@ void assignLowestNodes(Node **A, Node **B, Node **C, Queue *leafQueue, Queue *mi
     //-------assigning C--------
 
     if(compareNodes(leafQueue->head, middleQueue->head) == -1){
-        printf("b gets leaf\n");
+        printf("c gets leaf\n");
         *C = dequeue(leafQueue);
     }
 
     else{
-        printf("b gets mid\n");
+        printf("c gets mid\n");
         *C = dequeue(middleQueue);
+	return;
     }
-
     return;
 }
 

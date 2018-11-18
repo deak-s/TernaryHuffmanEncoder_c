@@ -1,5 +1,5 @@
-*
- * @file nodeQueue.c
+/*
+ * @file nodeQueue.h
  * @author Sophia Deak
  * @date Nov 17th 2018
  * @brief queue for nodes
@@ -35,7 +35,7 @@ struct queue {
 typedef struct pair {
    char character;
    int frequency;
-}
+}Pair;
 
 
 Node * createNode(char c, int f);
@@ -44,7 +44,7 @@ Node *copyNode(Node *original);
 
 Queue *initializeEmptyQueue ();
 
-Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length);
+void fillQueueFromArray(Pair *array, Queue *theQueue, size_t length);
 
 void  enqueue(Queue *theQueue, Node *theNode);
 

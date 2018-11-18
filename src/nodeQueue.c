@@ -51,7 +51,7 @@ Queue *initializeEmptyQueue () {
 
 
 
-Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
+void fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
 
     printf("length %ld\n", length);
 
@@ -71,6 +71,7 @@ Queue *fillQueueFromArray(Pair *array, Queue *theQueue, size_t length){
    
         currentNode = currentNode->next;
     }
+return;
 }
 
 
@@ -112,6 +113,22 @@ Node *dequeue(Queue *theQueue){
     return tempNode;
 };
 
+
+void printQueue(Queue *theQueue){
+
+    if(theQueue->head == NULL){
+        printf("queue empty");
+        return;
+    }
+    
+    Node *tempNode = theQueue->head;
+    printf(" %c : %d \n", tempNode->character, tempNode->frequency);
+     while(tempNode->next != NULL){
+        tempNode = tempNode->next;
+
+        printf(" %c : %d \n", tempNode->character, tempNode->frequency);
+     }
+};
 
 
 void deleteQueue(Queue *theQueue){
