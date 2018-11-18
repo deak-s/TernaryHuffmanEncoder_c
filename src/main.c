@@ -38,12 +38,15 @@ int x =  countUnusedChars(&tList);
 // printQueue(lQueue);
 
 
-createTree(&lQueue);
+Node *root = createTree(&lQueue);
 
 
 
+printTree(root);
 
+int code[5] = {0};
+grabEncoding(root, 0, code);
 	
 
-	return 0;
+return 0;
 }

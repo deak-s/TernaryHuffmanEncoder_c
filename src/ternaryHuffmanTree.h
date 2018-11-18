@@ -19,9 +19,9 @@ typedef struct htree {
 
 Node * createTree(Queue **leafQueue);
 
-void grabEncoding(Node *root, int height, int *code);
 
 void printTree(Node *theRoot);
 
+void grabEncoding(Node *root, int height, int *code);
 
 #endif
