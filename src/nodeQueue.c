@@ -105,7 +105,7 @@ Node *dequeue(Queue *theQueue){
     else if(theQueue->head->next == NULL){
 
         printf("last queue element\n");
-        //free(theQueue->head);
+        free(theQueue->head);
         theQueue->head = NULL;
     }
     return tempNode;
@@ -131,6 +131,10 @@ void printQueue(Queue *theQueue){
 
 void deleteQueue(Queue *theQueue){
 
+    if(theQueue->head == NULL){
+        printf("queue empty\n");
+        return;
+    }
     Node *temp = theQueue->head;
     Node *next;
 

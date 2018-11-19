@@ -35,7 +35,7 @@ int x =  countUnusedChars(&tList);
  fillQueueFromArray(&tList->pairList[x], lQueue, (tList->length - x));
 
  printf("printing lQueue\n");
-// printQueue(lQueue);
+ printQueue(lQueue);
 
 
 Node *root = createTree(&lQueue);
@@ -45,15 +45,12 @@ Node *root = createTree(&lQueue);
 printTree(root);
 
 int code[5] = {0};
-grabEncoding(root, 0, code);
+//grabEncoding(root, 0, code);
 	
 
-
-//printQueue(lQueue);
-//free(lQueue->tail);
-//free(lQueue->head);
-
-//deleteQueue(lQueue);
+deleteTree(root);
+deleteQueue(lQueue);
+free(lQueue);
 
 free(tList->pairList);
 free(tList);

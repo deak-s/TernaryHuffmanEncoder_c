@@ -101,7 +101,6 @@ void grabEncoding(Node *root, int height, int *code){
 
 void deleteTree(Node *root){
 
-
     Node *theNode = root;
 
     if(theNode == NULL){
