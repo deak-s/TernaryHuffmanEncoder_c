@@ -28,9 +28,12 @@ CodeSet *createCodeSet(char character, int *code, int length);
 
 int compareCodeSets(CodeSet *A, CodeSet *B);
 
-CodeBook *initializeCodeBook(size_t bookSize);
+CodeBook *initializeCodeBook();
 
 void addToCodeBook(CodeBook *theBook, char character, int *code, int length);
 
+void printCodeSet(CodeSet *theSet);
+void printCodeBook(CodeBook *theBook);
+void deleteCodeBook(CodeBook *theBook);
 
 #endif

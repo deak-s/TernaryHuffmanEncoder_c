@@ -12,8 +12,7 @@
 #include "nodeQueue.h"
 
 
-Node * createNode(char c, int f) {      
-    Node *newNode = (Node *)malloc(sizeof(Node));
+Node * createNode(char c, int f) {      Node *newNode = (Node *)malloc(sizeof(Node));
     newNode->character = c;
     newNode->frequency = f;             
     newNode->next = NULL;
@@ -148,22 +147,4 @@ void deleteQueue(Queue *theQueue){
     free(theQueue);
     printf("finished deleting queue\n");
 
-    /*
-     if(theQueue->head == NULL){
-        printf("queue empty");
-        free(theQueue);
-        return;
-    }
-
-    Node *tempNode = theQueue->head;
-        printf("deleting  %c : %d \n", tempNode->character, tempNode->frequency);
-
-         while(tempNode->next != NULL){
-            tempNode = tempNode->next;
-            free(tempNode->prev);
-
-         }
-         free(tempNode);
-         free(theQueue);
-         */
 }

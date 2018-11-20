@@ -17,6 +17,13 @@ CodeSet *createCodeSet(char character, int *code, int length){
 	newCodeSet->code = code;
 	newCodeSet->length = length;
 
+
+    newCodeSet->next = NULL;
+    newCodeSet->prev = NULL;
+    
+    printf("\nnew code set\n ");
+    printCodeSet(newCodeSet);
+
 	return newCodeSet;
 }
 
@@ -53,10 +60,9 @@ CodeBook *initializeCodeBook(size_t bookSize){
 
 	CodeBook *newBook = (CodeBook *)malloc(sizeof(CodeBook));
 
-//	newBook->codeList = (CodeSet *)malloc(sizeof(CodeSet) * bookSize);
 
 	newBook->head = NULL;
-	newBook->length = bookSize;
+	newBook->length = 0;
 
 	return newBook;
 };
@@ -70,37 +76,100 @@ void addToCodeBook(CodeBook *theBook, char character, int *code, int length){
 
 	if (theBook->head == NULL){
 		theBook->head = newCodeSet;
+        theBook->length++;        
+        printf("added first set\n");
 		return;
 	}
 
 	CodeSet *tempSet = theBook->head;
-	
+    // A < B
+    // case: front of list
 	if(compareCodeSets(newCodeSet, tempSet) == -1){
 
 		tempSet->prev = newCodeSet;
 		newCodeSet->next = tempSet;
 		theBook->head = newCodeSet;
+        printf("added to front of book\n");
+        theBook->length++;        
 		return;
 	}
 
 	while(tempSet != NULL){
 
+        // A < B
+        // add to middle
 		if(compareCodeSets(newCodeSet, tempSet) == -1){
 			tempSet->prev->next = newCodeSet;
 			newCodeSet->prev = tempSet->prev;
 			newCodeSet->next = tempSet;
 			tempSet->prev = newCodeSet;
+        theBook->length++;        
+        printf("added to middle of book\n");
+            return;
 		}
 
 		else if(compareCodeSets(newCodeSet, tempSet) == 1 && tempSet->next == NULL){
 		tempSet->next = newCodeSet;
 		newCodeSet->prev = tempSet;
+        theBook->length++;        
+        printf("added to end of book\n");
 		return;
 		}
 	
 		else{
 			tempSet = tempSet->next;
 		}
-
 	}
+    return;
+}
+
+void printCodeSet(CodeSet *theSet){
+
+    printf("%c : ", 
+            theSet->character);
+
+        for(int j = 0; j < theSet->length; j++){
+            printf("%d", theSet->code[j]);
+        }
+        printf("\n");
+}
+
+
+void printCodeBook(CodeBook *theBook){
+
+    if(theBook->head == NULL){
+        printf("book empty\n");
+        return;
+    }
+
+    CodeSet *temp = theBook->head;
+    printCodeSet(temp);
+
+    while(temp->next != NULL){
+        temp = temp->next;
+        printCodeSet(temp);
+    }
+    return;
+}
+
+
+void deleteCodeBook(CodeBook *theBook){
+
+    if(theBook->head == NULL){
+        printf("book empty\n");
+        return;
+    }
+
+    CodeSet *temp = theBook->head;
+    CodeSet *next;
+    printCodeSet(temp);
+
+    while(temp != NULL){
+        next = temp->next;
+        free(temp);
+        temp = next;
+    }
+    
+    free(theBook);
+    return;
 }

@@ -13,6 +13,7 @@
 #include "ternaryHuffmanTree.h"
 #include "nodeQueue.h"
 #include "helpers.h"
+#include "codeBook.h"
 
 
 Node * createTree(Queue **leafQueue){
@@ -40,12 +41,11 @@ Node * createTree(Queue **leafQueue){
     printf("printing final midqueue\n");
 
     printQueue(middleQueue);
-    Node *x = middleQueue->head;
+//    Node *x = middleQueue->head;
 
-    printf("test %c %c %c\n", x->left->character, x->right->character, x->left->left->character); 
+ //   printf("test %c %c %c\n", x->left->character, x->right->character, x->left->left->character); 
 
-    Node *root = copyNode(middleQueue->head);
-
+    Node *root = dequeue(middleQueue);
 
     printQueue(*leafQueue);
     deleteQueue(*leafQueue);
@@ -53,8 +53,7 @@ Node * createTree(Queue **leafQueue){
 
     printQueue(middleQueue);
     deleteQueue(middleQueue);
-
-
+    free(middleQueue);
 
     return root;
 }
@@ -73,33 +72,41 @@ void printTree(Node *root){
         printTree(theNode->right);
 }
 
-void grabEncoding(Node *root, int height, int *code){
+
+void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBook){
 
     Node *theNode = root;
 
     if(theNode->character != '*'){
+        
         printf("Node %c : %d \n", theNode->character, theNode->frequency);
-        for(int j = 0; j < height ; j++){
-            printf("%d", code[j]);
-        }
+        //for(int j = 0; j < height ; j++){
+         //   printf("%d", code[j]);
+       // }
+
+
+    //    addToCodeBook(*theBook, theNode->character, code, height);
+
         printf("\n");
         return;
     }
 
     code[height - 1] = 0;
-   grabEncoding(theNode->left, height + 1, code);
+   iterateThroughEncodings(theNode->left, height + 1, code, theBook);
 
 
     code[height - 1] = 1;
-    grabEncoding(theNode->middle, height + 1, code);
+    iterateThroughEncodings(theNode->middle, height + 1, code, theBook);
 
     code[height - 1] = 2;
-    grabEncoding(theNode->right, height + 1, code);
+    iterateThroughEncodings(theNode->right, height + 1, code, theBook);
 
 }
 
 
 void deleteTree(Node *root){
+
+    printf("deleting begun\n");
 
     Node *theNode = root;
 
@@ -107,9 +114,10 @@ void deleteTree(Node *root){
         return;
     }
 
-    deleteTree(root->left);
-    deleteTree(root->middle);
-    deleteTree(root->right);
+    printf("deleting %c %d\n", theNode->character, theNode->frequency);
+    deleteTree(theNode->left);
+    deleteTree(theNode->middle);
+    deleteTree(theNode->right);
 
     free(theNode);
     return;

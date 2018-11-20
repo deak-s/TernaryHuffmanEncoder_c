@@ -14,6 +14,7 @@
 #include "frequencyList.h"
 #include "ternaryHuffmanTree.h"
 
+#include "codeBook.h"
 
 int main(){
 
@@ -41,14 +42,32 @@ int x =  countUnusedChars(&tList);
 Node *root = createTree(&lQueue);
 
 
-
 printTree(root);
 
+CodeBook *testCodeBook = initializeCodeBook();
 int code[5] = {0};
-//grabEncoding(root, 0, code);
-	
 
-deleteTree(root);
+printTree(root);
+printTree(root);
+iterateThroughEncodings(root, 0, code, &testCodeBook);
+
+
+
+printf("------finished encodings\n");
+//printCodeBook(testCodeBook);
+	
+if(root  == NULL){
+    printf("root null here\n");
+}
+
+//printf("root %c %d\n", root->character, root->frequency);
+
+
+//deleteTree(root);
+
+deleteCodeBook(testCodeBook);
+free(testCodeBook);
+
 deleteQueue(lQueue);
 free(lQueue);
 
