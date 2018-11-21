@@ -45,28 +45,27 @@ Node *root = createTree(&lQueue);
 printTree(root);
 
 CodeBook *testCodeBook = initializeCodeBook();
+
 int code[5] = {0};
 
 printTree(root);
 printTree(root);
-iterateThroughEncodings(root, 0, code, &testCodeBook);
+iterateThroughEncodings(root, 0, code);
 
 
 
-printf("------finished encodings\n");
 //printCodeBook(testCodeBook);
 	
-if(root  == NULL){
-    printf("root null here\n");
-}
-
-//printf("root %c %d\n", root->character, root->frequency);
+printf("------finished encodings\n");
 
 
-//deleteTree(root);
+printf("root %c %d\n", root->character, root->frequency);
 
-deleteCodeBook(testCodeBook);
-free(testCodeBook);
+
+deleteTree(root);
+
+//deleteCodeBook(testCodeBook);
+//free(testCodeBook);
 
 deleteQueue(lQueue);
 free(lQueue);

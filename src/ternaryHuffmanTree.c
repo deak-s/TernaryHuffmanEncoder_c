@@ -73,16 +73,17 @@ void printTree(Node *root){
 }
 
 
-void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBook){
+//used to have CodeBook **theBook
+void iterateThroughEncodings(Node *root, int height, int *code){
 
     Node *theNode = root;
 
     if(theNode->character != '*'){
         
         printf("Node %c : %d \n", theNode->character, theNode->frequency);
-        //for(int j = 0; j < height ; j++){
-         //   printf("%d", code[j]);
-       // }
+        for(int j = 0; j < height ; j++){
+            printf("%d", code[j]);
+        }
 
 
     //    addToCodeBook(*theBook, theNode->character, code, height);
@@ -92,21 +93,20 @@ void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBo
     }
 
     code[height - 1] = 0;
-   iterateThroughEncodings(theNode->left, height + 1, code, theBook);
+   iterateThroughEncodings(theNode->left, height + 1, code );
 
 
-    code[height - 1] = 1;
-    iterateThroughEncodings(theNode->middle, height + 1, code, theBook);
+   code[height - 1] = 1;
+    iterateThroughEncodings(theNode->middle, height + 1, code );
 
     code[height - 1] = 2;
-    iterateThroughEncodings(theNode->right, height + 1, code, theBook);
+    iterateThroughEncodings(theNode->right, height + 1, code );
 
 }
 
 
 void deleteTree(Node *root){
 
-    printf("deleting begun\n");
 
     Node *theNode = root;
 
