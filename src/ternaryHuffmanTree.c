@@ -13,7 +13,7 @@
 #include "ternaryHuffmanTree.h"
 #include "nodeQueue.h"
 #include "helpers.h"
-#include "codeBook.h"
+//#include "codeBook.h"
 
 
 Node * createTree(Queue **leafQueue){
@@ -73,8 +73,7 @@ void printTree(Node *root){
 }
 
 
-//used to have CodeBook **theBook
-void iterateThroughEncodings(Node *root, int height, int *code){
+void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBook){
 
     Node *theNode = root;
 
@@ -84,26 +83,59 @@ void iterateThroughEncodings(Node *root, int height, int *code){
         for(int j = 0; j < height ; j++){
             printf("%d", code[j]);
         }
+        printf("at height %d\n", height);
 
-
-    //    addToCodeBook(*theBook, theNode->character, code, height);
+        addToCodeBook(*theBook, theNode->character, code, height);
 
         printf("\n");
         return;
     }
 
-    code[height - 1] = 0;
-   iterateThroughEncodings(theNode->left, height + 1, code );
+
+    if(height == 0){
+        iterateThroughEncodings(theNode->left, height  + 1, code, theBook);
+        iterateThroughEncodings(theNode->middle, height + 1 , code, theBook);
+        iterateThroughEncodings(theNode->right, height + 1, code, theBook);
+    }
+
+    else{
+
+        //code[height - 1] = 0;
+        int *newCode = (int *)calloc(height + 1, sizeof(int *));
+        memmove(newCode, code, height + 1);
+
+        printf("--new code\n");
+        newCode[height -1] = 0;
+       for(int j = 0; j <= height ; j++){
+            printf("%d", newCode[j]);
+        }
+       printf("\n");
+       iterateThroughEncodings(
+               theNode->left, 
+               height + 1, 
+               newCode, 
+               theBook);
 
 
-   code[height - 1] = 1;
-    iterateThroughEncodings(theNode->middle, height + 1, code );
 
-    code[height - 1] = 2;
-    iterateThroughEncodings(theNode->right, height + 1, code );
+        code[height ] = 1;
+        int *midCode = (int *)calloc(height, sizeof(int *));
+        memmove(midCode, code, height);
+
+        midCode[height  ] = 1;
+        iterateThroughEncodings(theNode->middle, 
+                height , midCode, theBook);
+
+
+        code[height -1 ] = 2;
+         int *rightCode = (int *)calloc(height + 1, sizeof(int *));
+        memmove(rightCode, code, height + 1);
+
+        rightCode[height - 1] = 2;
+        iterateThroughEncodings(theNode->right, height + 1, rightCode, theBook );
+     }
 
 }
-
 
 void deleteTree(Node *root){
 

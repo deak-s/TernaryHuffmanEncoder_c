@@ -22,7 +22,7 @@ Node * createTree(Queue **leafQueue);
 
 void printTree(Node *theRoot);
 
-void iterateThroughEncodings(Node *root, int height, int *code);
+void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBook);
 
 void deleteTree(Node *root);
 

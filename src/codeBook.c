@@ -17,7 +17,6 @@ CodeSet *createCodeSet(char character, int *code, int length){
 	newCodeSet->code = code;
 	newCodeSet->length = length;
 
-
     newCodeSet->next = NULL;
     newCodeSet->prev = NULL;
     
@@ -56,10 +55,9 @@ int compareCodeSets(CodeSet *A, CodeSet *B){
 	return 44;
 }
 
-CodeBook *initializeCodeBook(size_t bookSize){
+CodeBook *initializeCodeBook(){
 
 	CodeBook *newBook = (CodeBook *)malloc(sizeof(CodeBook));
-
 
 	newBook->head = NULL;
 	newBook->length = 0;
@@ -91,11 +89,12 @@ void addToCodeBook(CodeBook *theBook, char character, int *code, int length){
 		theBook->head = newCodeSet;
         printf("added to front of book\n");
         theBook->length++;        
+        printf("printing book\n");
+        printCodeBook(theBook);
 		return;
 	}
 
 	while(tempSet != NULL){
-
         // A < B
         // add to middle
 		if(compareCodeSets(newCodeSet, tempSet) == -1){
@@ -105,14 +104,19 @@ void addToCodeBook(CodeBook *theBook, char character, int *code, int length){
 			tempSet->prev = newCodeSet;
         theBook->length++;        
         printf("added to middle of book\n");
-            return;
+         printf("printing book\n");
+        printCodeBook(theBook);
+   return;
 		}
 
 		else if(compareCodeSets(newCodeSet, tempSet) == 1 && tempSet->next == NULL){
 		tempSet->next = newCodeSet;
 		newCodeSet->prev = tempSet;
         theBook->length++;        
-        printf("added to end of book\n");
+        printf("added to end of book\n"); 
+        printf("printing book\n");
+        printCodeBook(theBook);
+
 		return;
 		}
 	

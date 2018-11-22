@@ -14,7 +14,7 @@
 #include "frequencyList.h"
 #include "ternaryHuffmanTree.h"
 
-#include "codeBook.h"
+//#include "codeBook.h"
 
 int main(){
 
@@ -49,17 +49,18 @@ CodeBook *testCodeBook = initializeCodeBook();
 int code[5] = {0};
 
 printTree(root);
-printTree(root);
-iterateThroughEncodings(root, 0, code);
+iterateThroughEncodings(root, 0, code, &testCodeBook);
 
 
+//printTree(root);
 
-//printCodeBook(testCodeBook);
-	
 printf("------finished encodings\n");
 
 
-printf("root %c %d\n", root->character, root->frequency);
+//printf("root %c %d\n", root->character, root->frequency);
+
+printCodeSet(testCodeBook->head);
+printCodeBook(testCodeBook);
 
 
 deleteTree(root);
