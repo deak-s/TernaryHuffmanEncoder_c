@@ -1,8 +1,8 @@
 /*
- * @file listfinalMain.c
+ * @file main.c
  * @author Sophia Deak
- * @date Nov 9th 2018
- * @brief main running huffman encoder (no debugging text)
+ * @date Nov 18th 2018
+ * @brief main function for example for ternary encoder
  */
 
 #include <stdio.h>
@@ -53,8 +53,8 @@ iterateThroughEncodings(root, 1, code, &testCodeBook);
 
 printf("------finished encodings\n");
 
-printf("right most");
-printf(" %c: %d\n", root->right->right->right->character, root->right->right->right->frequency); 
+//printf("right most");
+//printf(" %c: %d\n", root->right->right->right->character, root->right->right->right->frequency); 
 
 
 //printf("root %c %d\n", root->character, root->frequency);
@@ -63,9 +63,15 @@ printf(" %c: %d\n", root->right->right->right->character, root->right->right->ri
 //printCodeBook(testCodeBook);
 
 
+
+int tester[4] = {1, 1, 0, 2};
+
+leftShift(tester, 4);
+
+printf("\n\n");
 deleteTree(root);
 
-//deleteCodeBook(testCodeBook);
+deleteCodeBook(testCodeBook);
 //free(testCodeBook);
 
 deleteQueue(lQueue);

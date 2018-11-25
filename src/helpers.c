@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "nodeQueue.h"
 #include "helpers.h"
@@ -89,4 +90,20 @@ Node *createMiddleNode(Node *A, Node *B, Node *C){
     newMiddle->middle = B;
     newMiddle->right = C;
     return newMiddle;
+}
+
+
+
+//ex input 1102
+//ex output 11020
+int *leftShift(int *input, int length){
+
+    int *newCode = (int *)malloc(sizeof(int *)* length + 1);
+
+
+    memmove(newCode, input, length * 4);
+
+    for(int j = 0; j < length; j++){
+        printf("%d", newCode[j]);
+    }
 }

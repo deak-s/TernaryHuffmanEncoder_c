@@ -87,6 +87,7 @@ void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBo
 
         addToCodeBook(*theBook, theNode->character, code, height -1);
 
+
         printf("\n");
         return;
     }
@@ -118,8 +119,8 @@ void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBo
        printf("\n");
 
         //code[height - 1] = 0;
-        int *newCode = (int *)calloc(height + 1, sizeof(int *));
-        memmove(newCode, code, height + 1);
+        int *newCode = (int *)calloc(height  , sizeof(int *));
+        memmove(newCode, code, (height -1) * 4);
 
         printf("--new code\n");
         newCode[height -1] = 0;
@@ -139,16 +140,17 @@ void iterateThroughEncodings(Node *root, int height, int *code, CodeBook **theBo
                theBook);
 
 
-        int *midCode = (int *)calloc(height + 1, sizeof(int *));
-        memmove(midCode, code, height + 1 );
+        int *midCode = (int *)calloc(height, sizeof(int *));
+        memmove(midCode, code, (height  - 1) * 4);
 
         midCode[height -1  ] = 1;
         iterateThroughEncodings(theNode->middle, 
                 height + 1 , midCode, theBook);
 
 
-        int *rightCode = (int *)calloc(height + 1, sizeof(int *));
-        memmove(rightCode, code, height + 1);
+        int *rightCode = (int *)calloc(height, sizeof(int *));
+        memcpy(rightCode, code, (height -1) * 4);
+        printf("height: %d\n", height);
 
         printf("old code     ->"); 
        for(int j = 0; j < height ; j++){

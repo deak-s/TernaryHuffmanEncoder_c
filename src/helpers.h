@@ -16,4 +16,5 @@ void assignLowestNodes(Node **A, Node **B, Node **C,  Queue *leafQueue, Queue *m
 
 Node *createMiddleNode(Node *A, Node *B, Node *C);
 
+int *leftShift(int *input, int length);
 #endif 
