@@ -48,7 +48,7 @@ struct codeSet {
 
 
 ##### Right side of tree
-![Alt Text] (https://github.com/deak-s/TernaryHuffmanEncoder_c/blob/master/public/tree_example2.png)
+![Alt Text](https://github.com/deak-s/TernaryHuffmanEncoder_c/blob/master/public/tree_example2.png)
 
 ## To Do/fix
 * iterateThroughEncodings() has leak & is inefficient
