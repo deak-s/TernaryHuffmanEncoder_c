@@ -46,21 +46,21 @@ printTree(root);
 
 CodeBook *testCodeBook = initializeCodeBook();
 
-int code[5] = {0};
+int code[1] = {0};
 
 printTree(root);
-iterateThroughEncodings(root, 0, code, &testCodeBook);
-
-
-//printTree(root);
+iterateThroughEncodings(root, 1, code, &testCodeBook);
 
 printf("------finished encodings\n");
+
+printf("right most");
+printf(" %c: %d\n", root->right->right->right->character, root->right->right->right->frequency); 
 
 
 //printf("root %c %d\n", root->character, root->frequency);
 
-printCodeSet(testCodeBook->head);
-printCodeBook(testCodeBook);
+//printCodeSet(testCodeBook->head);
+//printCodeBook(testCodeBook);
 
 
 deleteTree(root);
