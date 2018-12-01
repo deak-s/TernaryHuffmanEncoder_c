@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "codeBook.h"
 
@@ -14,13 +15,15 @@ CodeSet *createCodeSet(char character, int *code, int length){
 
 	CodeSet *newCodeSet = (CodeSet *)malloc(sizeof(CodeSet));
 	newCodeSet->character = character;
-	newCodeSet->code = code;
+    int * codeCopy = (int*)malloc(length * sizeof(int));
+    memmove(codeCopy, code, length * 4);
+
+	newCodeSet->code = codeCopy;
 	newCodeSet->length = length;
 
     newCodeSet->next = NULL;
     newCodeSet->prev = NULL;
     
-    printf("\nnew code set\n ");
     printCodeSet(newCodeSet);
 
 	return newCodeSet;
@@ -75,7 +78,6 @@ void addToCodeBook(CodeBook *theBook, char character, int *code, int length){
 	if (theBook->head == NULL){
 		theBook->head = newCodeSet;
         theBook->length++;        
-        printf("added first set\n");
 		return;
 	}
 
@@ -170,6 +172,7 @@ void deleteCodeBook(CodeBook *theBook){
 
     while(temp != NULL){
         next = temp->next;
+        free(temp->code);
         free(temp);
         temp = next;
     }

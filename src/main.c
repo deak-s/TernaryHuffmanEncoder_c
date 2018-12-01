@@ -44,11 +44,14 @@ Node *root = createTree(&lQueue);
 
 printTree(root);
 
+int h = heightOfTree(root);
+
 CodeBook *testCodeBook = initializeCodeBook();
 
-int code[1] = {0};
+int *code = (int *)calloc(h, sizeof(int));
 
 printTree(root);
+printf("---------after tree print\n");
 iterateThroughEncodings(root, 1, code, &testCodeBook);
 
 printf("------finished encodings\n");
@@ -64,15 +67,14 @@ printf("------finished encodings\n");
 
 
 
-int tester[4] = {1, 1, 0, 2};
 
-leftShift(tester, 4);
 
 printf("\n\n");
 deleteTree(root);
 
 deleteCodeBook(testCodeBook);
 //free(testCodeBook);
+free(code);
 
 deleteQueue(lQueue);
 free(lQueue);
