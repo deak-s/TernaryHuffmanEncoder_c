@@ -7,7 +7,7 @@ Program takes a string of text as input, counts the frequency of characters in t
 It then constructs a ternary huffman tree, and saves the generated codes to a codebook. 
 
 
-##### CodeBook structure
+#### CodeBook structure
 
 Implemented as a linked list
 ``` c 
@@ -21,10 +21,10 @@ struct codeSet {
 
 ## Example
 
-##### Sample Input
+#### Sample Input
 ``` "Lorem ipsum dolor sit amet, vim affert alterum " ```
 
-##### Resulting frequencies and codes
+#### Resulting frequencies and codes
 
 | Character | Frequency | Non-canonical Code |
 |-----------|-----------|--------------------|
@@ -48,7 +48,7 @@ struct codeSet {
 
 
 ##### Right side of tree
-![alt text] (https://github.com/deak-s/TernaryHuffmanEncoder/raw/master/public/tree_example2.png "text ???")
+![Alt Text](https://github.com/deak-s/TernaryHuffmanEncoder_c/blob/master/public/tree_example2.png)
 
 ## To Do/fix
 * iterateThroughEncodings() has leak & is inefficient
