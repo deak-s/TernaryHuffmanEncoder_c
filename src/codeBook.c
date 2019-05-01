@@ -74,7 +74,6 @@ void addToCodeBook(CodeBook *theBook, char character, int *code, int length){
 
 	CodeSet *newCodeSet = createCodeSet(character, code, length);
 
-
 	if (theBook->head == NULL){
 		theBook->head = newCodeSet;
         theBook->length++;        
