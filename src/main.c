@@ -16,6 +16,8 @@
 
 //#include "codeBook.h"
 
+#include "canonicalCodeBook.h"
+
 int main(){
 
     char shortInput[] = "Lorem ipsum dolor sit amet, vim affert alterum ";
@@ -48,11 +50,12 @@ int main(){
 
     int *code = (int *)calloc(h, sizeof(int));
 
-    printTree(root);
+    //printTree(root);
     printf("---------after tree print\n");
     iterateThroughEncodings(root, 1, code, &testCodeBook);
 
     printf("------finished encodings\n");
+
 
     //printf("right most");
     //printf(" %c: %d\n", root->right->right->right->character, root->right->right->right->frequency); 
@@ -63,7 +66,11 @@ int main(){
     //printCodeBook(testCodeBook);
 
 
-    printf("\n\n");
+    convertToCanonical(testCodeBook);
+
+
+
+    printf("\n\n\n\n\n");
     deleteTree(root);
 
     deleteCodeBook(testCodeBook);

@@ -30,6 +30,10 @@ int compareCodeSets(CodeSet *A, CodeSet *B);
 
 CodeBook *initializeCodeBook();
 
+/*
+ * codebook is ordered first by length, then alphabetically
+ */
+
 void addToCodeBook(CodeBook *theBook, char character, int *code, int length);
 
 void printCodeSet(CodeSet *theSet);

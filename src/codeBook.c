@@ -10,121 +10,119 @@
 #include <string.h>
 
 #include "codeBook.h"
+#include "canonicalCodeBook.h"
 
 CodeSet *createCodeSet(char character, int *code, int length){
 
-	CodeSet *newCodeSet = (CodeSet *)malloc(sizeof(CodeSet));
-	newCodeSet->character = character;
+    CodeSet *newCodeSet = (CodeSet *)malloc(sizeof(CodeSet));
+    newCodeSet->character = character;
     int * codeCopy = (int*)malloc(length * sizeof(int));
     memmove(codeCopy, code, length * 4);
 
-	newCodeSet->code = codeCopy;
-	newCodeSet->length = length;
+    newCodeSet->code = codeCopy;
+    newCodeSet->length = length;
 
     newCodeSet->next = NULL;
     newCodeSet->prev = NULL;
-    
-    printCodeSet(newCodeSet);
 
-	return newCodeSet;
+    printCodeSet(newCodeSet);
+    return newCodeSet;
 }
 
 int compareCodeSets(CodeSet *A, CodeSet *B){
+    //A > B = 1
+    //A < B = -1
+    //A = B = 0
 
-	//A > B = 1
-	//A < B = -1
-	//A = B = 0
+    if(A->length > B->length){
+        return 1;
+    }
 
-	if(A->length > B->length){
-		return 1;
-	}
+    else if(A->length < B->length){
+        return -1;
+    }
 
-	else if(A->length < B->length){
-		return -1;
-	}
+    else{
+        if(A->character > B->character){
+            return 1;
+        }
 
-	else{
-		if(A->character > B->character){
-			return 1;
-		}
-
-		else if(A->character < B->character){
-			return -1;
-		}
-		else{
-			return 99;
-		}
-	}
-	return 44;
+        else if(A->character < B->character){
+            return -1;
+        }
+        else{
+            return 99;
+        }
+    }
+    return 44;
 }
 
 CodeBook *initializeCodeBook(){
 
-	CodeBook *newBook = (CodeBook *)malloc(sizeof(CodeBook));
+    CodeBook *newBook = (CodeBook *)malloc(sizeof(CodeBook));
 
-	newBook->head = NULL;
-	newBook->length = 0;
+    newBook->head = NULL;
+    newBook->length = 0;
 
-	return newBook;
+    return newBook;
 };
 
 
 
 void addToCodeBook(CodeBook *theBook, char character, int *code, int length){
 
-	CodeSet *newCodeSet = createCodeSet(character, code, length);
+    CodeSet *newCodeSet = createCodeSet(character, code, length);
 
-	if (theBook->head == NULL){
-		theBook->head = newCodeSet;
+    if (theBook->head == NULL){
+        theBook->head = newCodeSet;
         theBook->length++;        
-		return;
-	}
+        return;
+    }
 
-	CodeSet *tempSet = theBook->head;
+    CodeSet *tempSet = theBook->head;
     // A < B
     // case: front of list
-	if(compareCodeSets(newCodeSet, tempSet) == -1){
-
-		tempSet->prev = newCodeSet;
-		newCodeSet->next = tempSet;
-		theBook->head = newCodeSet;
+    if(compareCodeSets(newCodeSet, tempSet) == -1){
+        tempSet->prev = newCodeSet;
+        newCodeSet->next = tempSet;
+        theBook->head = newCodeSet;
         printf("added to front of book\n");
         theBook->length++;        
         printf("printing book\n");
         printCodeBook(theBook);
-		return;
-	}
+        return;
+    }
 
-	while(tempSet != NULL){
+    while(tempSet != NULL){
         // A < B
         // add to middle
-		if(compareCodeSets(newCodeSet, tempSet) == -1){
-			tempSet->prev->next = newCodeSet;
-			newCodeSet->prev = tempSet->prev;
-			newCodeSet->next = tempSet;
-			tempSet->prev = newCodeSet;
-        theBook->length++;        
-        printf("added to middle of book\n");
-         printf("printing book\n");
-        printCodeBook(theBook);
-   return;
-		}
+        if(compareCodeSets(newCodeSet, tempSet) == -1){
+            tempSet->prev->next = newCodeSet;
+            newCodeSet->prev = tempSet->prev;
+            newCodeSet->next = tempSet;
+            tempSet->prev = newCodeSet;
+            theBook->length++;        
+            printf("added to middle of book\n");
+            printf("printing book\n");
+            printCodeBook(theBook);
+            return;
+        }
 
-		else if(compareCodeSets(newCodeSet, tempSet) == 1 && tempSet->next == NULL){
-		tempSet->next = newCodeSet;
-		newCodeSet->prev = tempSet;
-        theBook->length++;        
-        printf("added to end of book\n"); 
-        printf("printing book\n");
-        printCodeBook(theBook);
+        else if(compareCodeSets(newCodeSet, tempSet) == 1 && tempSet->next == NULL){
+            tempSet->next = newCodeSet;
+            newCodeSet->prev = tempSet;
+            theBook->length++;        
+            printf("added to end of book\n"); 
+            printf("printing book\n");
+            printCodeBook(theBook);
 
-		return;
-		}
-	
-		else{
-			tempSet = tempSet->next;
-		}
-	}
+            return;
+        }
+
+        else{
+            tempSet = tempSet->next;
+        }
+    }
     return;
 }
 
@@ -133,10 +131,10 @@ void printCodeSet(CodeSet *theSet){
     printf("%c : ", 
             theSet->character);
 
-        for(int j = 0; j < theSet->length; j++){
-            printf("%d", theSet->code[j]);
-        }
-        printf("\n");
+    for(int j = 0; j < theSet->length; j++){
+        printf("%d", theSet->code[j]);
+    }
+    printf("\n");
 }
 
 
@@ -175,7 +173,7 @@ void deleteCodeBook(CodeBook *theBook){
         free(temp);
         temp = next;
     }
-    
+
     free(theBook);
     return;
 }
