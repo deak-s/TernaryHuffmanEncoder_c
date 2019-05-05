@@ -25,7 +25,11 @@ int codeToInt(int *code, int length){
     };
 
         printf("FINAL answer %d\n", answer);
+        //printf("BIT answer %d\n", answer);
 
+        //TODO implement trit array shifting
+
+        return answer;
 };
 
 
@@ -50,7 +54,16 @@ void *convertToCanonical(CodeBook *oldBook){
         temp = temp->next;
         printCodeSet(temp);
 
-        codeToInt(temp->code, temp->length);
+        //TODO: this should not be necessary
+        //potential issue - 001 becomes 1
+        int regularCode = codeToInt(temp->code, temp->length);
+
+        //if first code in book
+        if(temp == oldBook->head){
+
+
+        }
+
     }
 
     void *a;
